@@ -27,7 +27,7 @@ namespace JogoDaVelhaForms
             InitializeComponent();
         }
 
-        private void btn_resete_Click(object sender, EventArgs e)
+        private void ClearBtn()
         {
             btn_0.Text = "";
             btn_1.Text = "";
@@ -38,13 +38,32 @@ namespace JogoDaVelhaForms
             btn_6.Text = "";
             btn_7.Text = "";
             btn_8.Text = "";
+        }
+
+        private void ClearColorBtn()
+        {
+            btn_0.BackColor = Color.White;
+            btn_1.BackColor = Color.White;
+            btn_2.BackColor = Color.White;
+            btn_3.BackColor = Color.White;
+            btn_4.BackColor = Color.White;
+            btn_5.BackColor = Color.White;
+            btn_6.BackColor = Color.White;
+            btn_7.BackColor = Color.White;
+            btn_8.BackColor = Color.White;
+        }
+
+        private void btn_resete_Click(object sender, EventArgs e)
+        {
+            ClearBtn();
+            ClearColorBtn();
 
             round = 0;
             winGame = false;
            
             for (int i = 0; i < 9; i++)
             {
-                listGame[i] = "";
+                listGame[i] = " ";
             }
         }
 
@@ -59,6 +78,7 @@ namespace JogoDaVelhaForms
                 if (shift)
                 {
                     btn.Text = "X";
+                    btn.BackColor = Color.Green;
                     listGame[buttonIndex] = btn.Text;
                     round++;
                     shift = !shift;
@@ -67,6 +87,7 @@ namespace JogoDaVelhaForms
                 else
                 {
                     btn.Text = "O";
+                    btn.BackColor = Color.Orange;
                     listGame[buttonIndex] = btn.Text;
                     round++;
                     shift = !shift;
@@ -85,16 +106,16 @@ namespace JogoDaVelhaForms
             }
             else
             {
-                aux = "0";
+                aux = "O";
             }
 
-            for (int horizotal = 0; horizotal < 8; horizotal += 3)
+            for (int horizontal = 0; horizontal < 8; horizontal += 3)
             {
-                if (aux == listGame[horizotal])
+                if (aux == listGame[horizontal])
                 {
-                    if (listGame[horizotal] == listGame[horizotal + 1] && listGame[horizotal] == listGame[horizotal + 2])
+                    if (listGame[horizontal] == listGame[horizontal + 1] && listGame[horizontal] == listGame[horizontal + 2])
                     {
-                        MessageBox.Show("Teste Horizotal");
+                        WinPlayer(player);
                         return;
                     }
                 }
@@ -106,7 +127,7 @@ namespace JogoDaVelhaForms
                 {
                     if (listGame[vertical] == listGame[vertical + 3] && listGame[vertical] == listGame[vertical + 6])
                     {
-                        MessageBox.Show("Teste Vertical");
+                        WinPlayer(player);
                         return;
                     }
                 }
@@ -116,7 +137,7 @@ namespace JogoDaVelhaForms
             {
                 if (listGame[0] == listGame[4] && listGame[0] == listGame[8])
                 {
-                    MessageBox.Show("Teste Dionanal esquerda direita");
+                    WinPlayer(player);
                     return;
                 }
             }
@@ -125,7 +146,7 @@ namespace JogoDaVelhaForms
             {
                 if (listGame[2] == listGame[4] && listGame[2] == listGame[6])
                 {
-                    MessageBox.Show("Teste Diagonal direita esquerda");
+                    WinPlayer(player);
                     return;
                 }
             }
